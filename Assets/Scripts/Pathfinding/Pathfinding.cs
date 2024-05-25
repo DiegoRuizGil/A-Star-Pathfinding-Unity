@@ -1,12 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
+using Node = GridSystem.Node;
 
 public class Pathfinding : MonoBehaviour
 {
     [Header("Configuration")]
+    public Transform pointA;
+    public Transform pointB;
     public int gridWidth = 4;
     public int gridHeight = 2;
     public float cellSize = 1f;
@@ -34,6 +37,7 @@ public class Pathfinding : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("buenas");
         grid = new Grid(gridWidth, gridHeight, cellSize, originPosition, wallLayer);
         grid.DrawGrid();
     }
@@ -51,6 +55,11 @@ public class Pathfinding : MonoBehaviour
             SetPath(startPoint.position, finalPoint.position);
             //DrawPath();
         }
+    }
+
+    private void OnValidate()
+    {
+        Debug.Log("hola");
     }
 
     private void OnDrawGizmos()
@@ -242,17 +251,5 @@ public class Pathfinding : MonoBehaviour
         float yValue = Mathf.Abs(finalPosition.y - startPosition.y);
 
         return Mathf.FloorToInt(xValue + yValue);
-    }
-
-    private string NodeListToString(List<Node> list)
-    {
-        string str = "{ ";
-
-        foreach (Node node in list)
-        {
-            str += node.ToString() + " ";
-        }
-
-        return str + "}";
     }
 }
