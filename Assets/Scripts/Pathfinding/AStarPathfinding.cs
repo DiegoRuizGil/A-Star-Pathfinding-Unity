@@ -25,10 +25,9 @@ namespace Pathfinding
             startNode.GCost = 0;
             startNode.HCost = GetHeuristic(startNode.Position, finalNode.Position);
 
-            Node currentNode = null;
-            while (_openList.Count > 0 || currentNode == finalNode) // || currentNode == finalNode
+            while (_openList.Count > 0)
             {
-                currentNode = _openList.OrderBy(node => node.FCost).FirstOrDefault();
+                Node currentNode = _openList.OrderBy(node => node.FCost).FirstOrDefault();
                 _closedList.Add(currentNode);
                 _openList.Remove(currentNode);
                 
