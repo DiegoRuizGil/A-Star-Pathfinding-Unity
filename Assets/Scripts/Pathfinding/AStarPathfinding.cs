@@ -35,19 +35,19 @@ namespace Pathfinding
                 // stop condition
                 if (currentNode == finalNode) break;
 
-                foreach (var nextNode in currentNode.neighbours)
+                foreach (var nextNode in currentNode.Neighbours)
                 {
                     int actionCost = GetCost(currentNode, nextNode);
                     
                     if (_openList.Contains(nextNode) && (currentNode.GCost + actionCost) < nextNode.GCost)
                     {
-                        nextNode.nodeParent = currentNode;
+                        nextNode.NodeParent = currentNode;
                         nextNode.GCost = currentNode.GCost + actionCost;
                         nextNode.HCost = GetHeuristic(nextNode.Position, finalNode.Position);
                     }
                     else if (_closedList.Contains(nextNode) && (currentNode.GCost + actionCost) < nextNode.GCost)
                     {
-                        nextNode.nodeParent = currentNode;
+                        nextNode.NodeParent = currentNode;
                         nextNode.GCost = currentNode.GCost + actionCost;
                         nextNode.HCost = GetHeuristic(nextNode.Position, finalNode.Position);
 
@@ -56,7 +56,7 @@ namespace Pathfinding
                     }
                     else if (!_openList.Contains(nextNode) && !_closedList.Contains(nextNode))
                     {
-                        nextNode.nodeParent = currentNode;
+                        nextNode.NodeParent = currentNode;
                         nextNode.GCost = currentNode.GCost + actionCost;
                         nextNode.HCost = GetHeuristic(nextNode.Position, finalNode.Position);
                         
@@ -66,13 +66,13 @@ namespace Pathfinding
             }
 
             List<Node> path = new List<Node>();
-            if (finalNode.nodeParent != null) // path founded
+            if (finalNode.NodeParent != null) // path founded
             {
                 Node nodeToAdd = finalNode;
                 path.Add(nodeToAdd);
-                while (nodeToAdd.nodeParent != null)
+                while (nodeToAdd.NodeParent != null)
                 {
-                    nodeToAdd = nodeToAdd.nodeParent;
+                    nodeToAdd = nodeToAdd.NodeParent;
                     path.Add(nodeToAdd);
                 }
             }
@@ -83,7 +83,7 @@ namespace Pathfinding
 
         private static void ResetNodes(Grid grid)
         {
-            foreach (var node in grid.nodes)
+            foreach (var node in grid.Nodes)
             {
                 node.Reset();
             }
@@ -103,7 +103,7 @@ namespace Pathfinding
             if (a == b)
                 return 0;
 
-            if (a.gridX == b.gridX || a.gridY == b.gridY)
+            if (a.GridX == b.GridX || a.GridY == b.GridY)
                 return STRAIGHT_MOVE_COST;
             
             return DIAGONAL_MOVE_COST;
