@@ -6,11 +6,12 @@ namespace GridSystem
     public class GridManager : MonoBehaviour
     {
         [Header("Grid Settings")]
-        [SerializeField] private Transform _pointA;
-        [SerializeField] private Transform _pointB;
         [SerializeField] private float _nodeSize = 1f;
         [SerializeField] private LayerMask _wallLayerMask;
         [SerializeField] private bool _drawGridOnStart;
+        
+        private Transform _pointA;
+        private Transform _pointB;
         
         public static GridManager Instance { get; private set; }
         public Grid Grid { get; private set; }
@@ -26,6 +27,9 @@ namespace GridSystem
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+
+            _pointA = transform.GetChild(0);
+            _pointB = transform.GetChild(1);
         }
 
         private void Start()

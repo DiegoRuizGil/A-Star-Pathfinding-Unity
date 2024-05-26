@@ -90,10 +90,10 @@ namespace Pathfinding
 
         private static int GetHeuristic(Vector3 startPosition, Vector3 finalPosition)
         {
-            // Manhattan distance
             float xValue = Mathf.Abs(finalPosition.x - startPosition.x);
             float yValue = Mathf.Abs(finalPosition.y - startPosition.y);
 
+            // Manhattan distance
             return Mathf.FloorToInt(xValue + yValue);
         }
 
