@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Grid = GridSystem.Grid;
 using Node = GridSystem.Node;
 
-public class Pathfinding : MonoBehaviour
+public class PathfindingBehaviour : MonoBehaviour
 {
     [Header("Configuration")]
     public Transform pointA;
@@ -57,11 +57,6 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        Debug.Log("hola");
-    }
-
     private void OnDrawGizmos()
     {
         if (grid != null)
@@ -110,12 +105,12 @@ public class Pathfinding : MonoBehaviour
         openList = new List<Node>() { startNode };
         closedList = new List<Node>();
 
-        startNode.gCost = 0;
-        startNode.hCost = GetHeuristic(startPosition, finalPosition);
+        startNode.GCost = 0;
+        startNode.HCost = GetHeuristic(startPosition, finalPosition);
 
         while (openList.Count > 0)
         {
-            List<Node> sortedOpenNodes = openList.OrderBy(node => node.fCost).ToList();
+            List<Node> sortedOpenNodes = openList.OrderBy(node => node.FCost).ToList();
             Node currentNode = sortedOpenNodes[0];
             closedList.Add(currentNode);
             openList.Remove(currentNode);
@@ -145,17 +140,17 @@ public class Pathfinding : MonoBehaviour
             {
                 int actionCost = GetCost(currentNode, nextNode);
 
-                if (openList.Contains(nextNode) && (currentNode.gCost + actionCost) < nextNode.gCost)
+                if (openList.Contains(nextNode) && (currentNode.GCost + actionCost) < nextNode.GCost)
                 {
                     nextNode.nodeParent = currentNode;
-                    nextNode.gCost = currentNode.gCost + actionCost;
-                    nextNode.hCost = GetHeuristic(nextNode, finalNode);
+                    nextNode.GCost = currentNode.GCost + actionCost;
+                    nextNode.HCost = GetHeuristic(nextNode, finalNode);
                 }
-                else if (closedList.Contains(nextNode) && (currentNode.gCost + actionCost) < nextNode.gCost)
+                else if (closedList.Contains(nextNode) && (currentNode.GCost + actionCost) < nextNode.GCost)
                 {
                     nextNode.nodeParent = currentNode;
-                    nextNode.gCost = currentNode.gCost + actionCost;
-                    nextNode.hCost = GetHeuristic(nextNode, finalNode);
+                    nextNode.GCost = currentNode.GCost + actionCost;
+                    nextNode.HCost = GetHeuristic(nextNode, finalNode);
 
                     closedList.Remove(nextNode);
                     openList.Add(nextNode);
@@ -163,8 +158,8 @@ public class Pathfinding : MonoBehaviour
                 else if (!openList.Contains(nextNode) && !closedList.Contains(nextNode))
                 {
                     nextNode.nodeParent = currentNode;
-                    nextNode.gCost = currentNode.gCost + actionCost;
-                    nextNode.hCost = GetHeuristic(nextNode, finalNode);
+                    nextNode.GCost = currentNode.GCost + actionCost;
+                    nextNode.HCost = GetHeuristic(nextNode, finalNode);
 
                     openList.Add(nextNode);
                 }
@@ -203,8 +198,8 @@ public class Pathfinding : MonoBehaviour
 
         foreach (Node node in visitedNodes)
         {
-            node.gCost = int.MaxValue / 2;
-            node.hCost = int.MaxValue / 2;
+            node.GCost = int.MaxValue / 2;
+            node.HCost = int.MaxValue / 2;
             node.nodeParent = null;
         }
     }

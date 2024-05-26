@@ -50,7 +50,7 @@ namespace GridSystem
                             Mathf.Infinity);
                     }
 
-                    nodes[i, j] = new Node(i, j, isWall, GetNodePosition(i, j));
+                    nodes[i, j] = new Node(i, j, isWall, GetNodePosition(i, j), cellSize);
                 }
             }
 
