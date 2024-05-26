@@ -1,6 +1,6 @@
 # A* Pathfinding - Unity 2D
 
-This project presents a Unity implementation of the A* algorthim for pathfiding. Utilizing a grid composed of nodes, the algorthim calculates optimal paths from a start point to a designated goal.
+This project presents a Unity implementation of the A* algorithm for pathfinding. Utilizing a grid composed of nodes, the algorithm calculates optimal paths from a start point to a designated goal.
 
 The project also includes a custom grid generation tool allows users to define the grid area, considering obstacles or walls marked within unity's tilemap system.
 
